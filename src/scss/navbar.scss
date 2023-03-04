@@ -1,0 +1,29 @@
+@import 'variaveis.scss';
+
+.navbar {
+
+    .navbar-brand {
+        color: $branco;
+    }
+
+    li {
+        padding: $px10;
+    }
+
+    .navbar-brand:hover {
+        color: $laranja-vermelho;
+    }
+
+    padding: $px20;
+
+    .nav-link {
+        margin-left: $px10;
+        color: $branco;
+        font-weight: $bold;
+    }
+
+    .nav-link:hover {
+        margin-left: $px10;
+        color: $laranja-vermelho;
+    }
+}

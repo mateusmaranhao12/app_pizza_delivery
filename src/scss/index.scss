@@ -1,0 +1,21 @@
+@import 'variaveis.scss';
+
+.bg-warning {
+    background-color: $laranja;
+}
+
+h4 {
+    text-transform: $uppercase;
+    font-weight: $bold;
+}
+
+.btn-warning {
+    background-color: $laranja;
+    color: $branco;
+    border: $none;
+}
+
+.btn-warning:hover {
+    background-color: $laranja-vermelho;
+    color: $branco;
+}
