@@ -6,7 +6,9 @@
     <div class="container">
         <div class="row">
             <div class="col">
-                <form class="mt-5">
+
+                <!--Etapa 1-->
+                <div v-if="etapa == 1" class="mt-5">
                     <h2 class="mt-5 mb-5">Etapa 1: Informações do cliente</h2>
                     <div class="form-group mx-2 mb-3">
                         <label for="nome">Nome</label>
@@ -51,11 +53,13 @@
                             </option>
                         </select>
                     </div>
-                    <button class="btn btn-warning float-end mt-5 mb-5">Próxima etapa <i
-                            class="fa-solid fa-arrow-right"></i></button>
-                </form>
+                    <button class="btn btn-warning float-end mt-5 mb-5" @click="proximaEtapa()">
+                        Próxima etapa <i class="fa-solid fa-arrow-right"></i>
+                    </button>
+                </div>
 
-                <form class="mt-5">
+                <!--Etapa 2-->
+                <div v-if="etapa == 2" class="mt-5">
                     <h2 class="mt-5 mb-5">Etapa 2: Endereço do cliente</h2>
                     <div class="form-group col-md-12 mx-2 mb-3">
                         <label for="rua">Rua</label>
@@ -67,17 +71,17 @@
                     </div>
                     <div class="form-group mx-2 mb-3">
                         <label for="complemento">Complemento</label>
-                        <input type="tel" placeholder="Complemento" ref="complemento" class="form-control"
+                        <input type="text" placeholder="Complemento" ref="complemento" class="form-control"
                             name="complemento" />
                     </div>
 
-                    <button class="btn btn-warning float-end mt-5 mb-5">Finalizar Pedido <i
-                        class="fa-solid fa-arrow-right"></i>
+                    <button class="btn btn-warning float-end mt-5 mb-5" @click="finalizarPedido()">Finalizar Pedido 
+                        <i class="fa-solid fa-arrow-right"></i>
                     </button>
-                    <button class="btn btn-warning float-start mt-5 mb-5"><i
-                        class="fa-solid fa-arrow-left"></i> Etapa anterior
+                    <button class="btn btn-warning float-start mt-5 mb-5" @click="etapaAnterior()">
+                        <i class="fa-solid fa-arrow-left"></i> Etapa anterior
                     </button>
-                </form>
+                </div>
             </div>
         </div>
     </div>
@@ -88,8 +92,30 @@ import Navbar from '../components/Navbar.vue'
 export default {
     name: 'AdicionarPedido',
 
+    data() {
+        return {
+            etapa: 1
+        }
+    },
+
     components: {
         Navbar
+    },
+
+    methods: {
+
+        proximaEtapa() {
+            this.etapa = 2
+        },
+
+        etapaAnterior() {
+            this.etapa = 1
+        },
+
+        finalizarPedido() {
+            this.etapa = 1
+        }
+
     }
 }
 </script>
