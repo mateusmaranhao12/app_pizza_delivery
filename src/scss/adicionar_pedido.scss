@@ -1,0 +1,35 @@
+@import 'variaveis';
+
+.titulo-adicionar-pedido {
+    border-top: 2px solid rgb(129, 34, 0);
+    border-bottom: 2px solid rgb(129, 34, 0);
+    background-color: rgb(255, 255, 222);
+    padding: $px20;
+
+    h1 {
+        color: $preto;
+        margin-top: $px10;
+        text-align: $center;
+        text-transform: $uppercase;
+        font-weight: $bold;
+    }
+}
+
+.btn-warning {
+    background-color: $laranja;
+    color: $branco;
+    border: $none;
+}
+
+.btn-warning:hover {
+    background-color: $laranja-vermelho;
+    color: $branco;
+}
+
+h2 {
+    color: $preto;
+    margin-top: $px10;
+    text-align: $center;
+    text-transform: $uppercase;
+    font-weight: $bold;
+}
