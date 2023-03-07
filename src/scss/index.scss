@@ -19,3 +19,14 @@ h4 {
     background-color: $laranja-vermelho;
     color: $branco;
 }
+
+.cadastro {
+    text-decoration: none;
+    color: $laranja;
+    font-weight: $bold;
+}
+
+.cadastro:hover {
+    text-decoration: none;
+    color: $laranja_vermelho;
+}

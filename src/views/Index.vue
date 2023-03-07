@@ -18,10 +18,15 @@
                     <input type="text" placeholder="e-mail" id="email" class="form-control mb-3" name="email"/>
                   </div>
                   <div class="form-group col-md-12 mx-2">
-                    <label for="user">Senha</label>
+                    <label for="senha">Senha</label>
                     <input type="password" placeholder="Senha" id="senha" class="form-control" name="senha"/>
                   </div>
                 </div>
+                
+                <div class="form-row mt-3 mb-3 text-center">
+                  <small>Ainda não tem conta? <router-link class="cadastro" to="/cadastro">Cadastre-se</router-link> agora mesmo!</small>
+                </div>
+
                 <div class="form-row">
                   <div class="form-group col-md-12">
                     <button class="btn btn-warning float-end mt-2" @click.prevent="fazerLogin()">Fazer login</button>
