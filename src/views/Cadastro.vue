@@ -1,46 +1,68 @@
 <template>
-    <div>
+    <div id="cadastro">
+        <div v-if="mensagem_sucesso" class="alert alert-success alert-dismissible fade show" role="alert">
+            <h5>{{ mensagem_sucesso }}</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"
+                @click="fecharMensagem()"></button>
+        </div>
+        <div v-if="mensagem_erro" class="alert alert-danger alert-dismissible fade show" role="alert">
+            <h5>{{ mensagem_erro }}</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"
+                @click="fecharMensagem()"></button>
+        </div>
         <div class="container">
             <div class="row">
                 <div class="col-md-4 ml-auto mr-auto offset-md-4">
                     <div class="card my-4">
                         <div class="card-heading">
                             <h4 class="h card-title bg-warning p-3 text-center text-white">
-                                Cadastro de funcionario
+                                Cadastro de funcionário
                             </h4>
                         </div>
                         <div class="card-body">
 
-                            <form action="" method="POST">
-                                <div class="form-row">
-                                    <div class="form-group col-md-12 mx-2">
-                                        <label for="user">E-mail</label>
-                                        <input type="text" placeholder="e-mail" id="email" class="form-control mb-3"
-                                            name="email" />
-                                    </div>
-                                    <div class="form-group col-md-12 mx-2">
-                                        <label for="senha">Senha</label>
-                                        <input type="password" placeholder="Senha" id="senha" class="form-control mb-3"
-                                            name="senha" />
-                                    </div>
-                                    <div class="form-group col-md-12 mx-2">
-                                        <label for="cpf">CPF</label>
-                                        <input type="cpf" placeholder="CPF" id="cpf" class="form-control" name="cpf" v-maska="'###.###.###-##'"/>
-                                    </div>
+                            <div class="form-row">
+                                <div class="form-group col-md-12 mx-2">
+                                    <label for="nome">Nome</label>
+                                    <input type="text" placeholder="Nome" ref="nome" id="nome"
+                                        v-model="funcionarios_registrados.nome" class="form-control mb-2" name="nome" />
+                                    <small class="text-danger">{{ erro_nome }}</small>
                                 </div>
 
-                                <div class="form-row mt-3 mb-3 text-center">
-                                    <small>
-                                        Já tem uma conta? <router-link class="cadastro" to="/">faça login</router-link> agora mesmo!
-                                    </small>
+                                <div class="form-group col-md-12 mx-2">
+                                    <label for="email">E-mail</label>
+                                    <input type="text" placeholder="e-mail" ref="email" id="email"
+                                        v-model="funcionarios_registrados.email" class="form-control mb-2" name="email" />
+                                    <small class="text-danger">{{ erro_email }}</small>
                                 </div>
+                                <div class="form-group col-md-12 mx-2">
+                                    <label for="cpf">CPF</label>
+                                    <input type="cpf" placeholder="CPF" ref="cpf" id="cpf"
+                                        v-model="funcionarios_registrados.cpf" class="form-control mb-2" name="cpf"
+                                        v-maska="'###.###.###-##'" />
+                                    <small class="text-danger">{{ erro_cpf }}</small>
+                                </div>
+                                <div class="form-group col-md-12 mx-2">
+                                    <label for="senha">Senha</label>
+                                    <input type="password" placeholder="Senha" ref="senha" id="senha"
+                                        v-model="funcionarios_registrados.senha" class="form-control mb-2" name="senha" />
+                                    <small class="text-danger">{{ erro_senha }}</small>
+                                </div>
+                            </div>
 
-                                <div class="form-row">
-                                    <div class="form-group col-md-12">
-                                        <button class="btn btn-warning float-end mt-2">Cadastrar</button>
-                                    </div>
+                            <div class="form-row mt-3 mb-3 text-center">
+                                <small>
+                                    Já tem uma conta? <router-link class="cadastro" to="/">Faça login</router-link> agora
+                                    mesmo!
+                                </small>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group col-md-12">
+                                    <button class="btn btn-warning float-end mt-2"
+                                        @click="cadastrarFuncionario()">Cadastrar</button>
                                 </div>
-                            </form>
+                            </div>
 
                         </div>
                     </div>
@@ -50,6 +72,125 @@
     </div>
 </template>
 
+<script>
+
+import axios from 'axios'
+export default {
+    name: 'Cadastro',
+
+    el: '#cadastro',
+
+    data() {
+        return {
+            mensagem_sucesso: '',
+            mensagem_erro: '',
+            erro_nome: '',
+            erro_email: '',
+            erro_cpf: '',
+            erro_senha: '',
+            funcionarios: [],
+            funcionarios_registrados: { nome: '', email: '', cpf: '', senha: '' }
+        }
+    },
+
+    methods: {
+
+        mounted() {
+            this.getFuncionarios()
+        },
+
+        getFuncionarios() {
+            axios.get('http://localhost/Projetos/app_pizza_delivery/src/backend/funcionarios.php')
+                .then((res) => {
+                    if (res.data.error) {
+                        this.mensagem_erro = res.data.mensagem
+                    }
+                    else {
+                        this.funcionarios = res.data.funcionarios
+                    }
+                });
+        },
+
+        cadastrarFuncionario() {
+            var cadastrar_funcionario = this.toFormData(this.funcionarios_registrados)
+            axios.post(
+                'http://localhost/Projetos/app_pizza_delivery/src/backend/funcionarios.php?acao=cadastrar', cadastrar_funcionario
+            ).then((res) => {
+                if (res.data.nome) {
+
+                    this.erro_nome = res.data.mensagem
+                    this.nomeFocus()
+
+                } else if (res.data.email) {
+
+                    this.erro_email = res.data.mensagem
+                    this.emailFocus()
+
+                } else if (res.data.cpf) {
+
+                    this.erro_cpf = res.data.mensagem
+                    this.cpfFocus()
+
+                } else if (res.data.senha) {
+
+                    this.erro_senha = res.data.mensagem
+                    this.senhaFocus()
+
+                } else {
+
+                    this.mensagem_sucesso = res.data.mensagem
+                    this.erro_nome = ''
+                    this.erro_email = ''
+                    this.erro_cpf = ''
+                    this.erro_senha = ''
+                    this.getFuncionarios()
+                    this.limparFormulario()
+
+                }
+
+            })
+        },
+
+        limparFormulario() {
+            this.funcionarios_registrados.nome = '',
+            this.funcionarios_registrados.email = '',
+            this.funcionarios_registrados.cpf = '',
+            this.funcionarios_registrados.senha = ''
+        },
+
+        nomeFocus() {
+            this.$refs.nome.focus()
+        },
+
+        emailFocus() {
+            this.$refs.email.focus()
+        },
+
+        cpfFocus() {
+            this.$refs.cpf.focus()
+        },
+
+        senhaFocus() {
+            this.$refs.senha.focus()
+        },
+
+        fecharMensagem() {
+            this.mensagem_erro = '',
+            this.mensagem_sucesso = ''
+        },
+
+        toFormData(obj) {
+            var liveFormData = new FormData();
+            for (var key in obj) {
+                liveFormData.append(key, obj[key])
+            }
+            return liveFormData
+        },
+    }
+}
+
+</script>
+
 <style scoped lang="scss">
-    @import '../scss/index.scss';
+@import '../scss/index.scss';
 </style>
