@@ -64,11 +64,13 @@
         } else {
 
             $sql= "SELECT * from funcionarios where email='$email'";
+            $sql= "SELECT * from funcionarios where cpf='$cpf'";
             $query = $db_conn->query($sql);
 
             if ($query->num_rows > 0) {
 
                 $res_output['email'] = true;
+                $res_output['cpf'] = true;
                 $res_output['mensagem'] = 'Funcionário já cadastrado';
 
             } else {
