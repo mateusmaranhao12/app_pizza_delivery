@@ -51,26 +51,24 @@
             $res_output['email'] = true;
             $res_output['mensagem'] = 'Informe seu e-mail!';
 
-        } else if (!filter_var($cpf)) {
+        } else if (!$cpf) {
 
             $res_output['cpf'] = true;
             $res_output['mensagem'] = 'Informe seu CPF!';
 
-        } else if (!filter_var($senha)) {
+        } else if (!$senha) {
 
             $res_output['senha'] = true;
             $res_output['mensagem'] = 'Informe sua senha!';
 
         } else {
 
-            $sql= "SELECT * from funcionarios where email='$email'";
-            $sql= "SELECT * from funcionarios where cpf='$cpf'";
+            $sql = "SELECT * FROM funcionarios WHERE email='$email'";
             $query = $db_conn->query($sql);
 
             if ($query->num_rows > 0) {
 
                 $res_output['email'] = true;
-                $res_output['cpf'] = true;
                 $res_output['mensagem'] = 'Funcionário já cadastrado';
 
             } else {
@@ -89,6 +87,34 @@
 
         }
 
+     }
+
+
+     //login de funcionarios
+     if ($acao == 'login') {
+
+        function checkStr($data) {
+            $data = trim($data);
+            $data = stripslashes($data);
+            $data = htmlspecialchars($data);
+
+            return $data;
+        }
+
+        $email = checkStr($_POST['email']);
+        $senha = checkStr($_POST['senha']);
+
+        $sql = "SELECT * FROM funcionarios WHERE email='$email' AND senha='$senha'";
+
+        $result = $db_conn -> query($sql);
+        $num = mysqli_num_rows($result);
+
+        if ($num > 0) {
+            $result = mysql_fetch_assoc($query);
+        } else {
+            $res_output['error'] = true;
+            $res_output['mensagem'] = "E-mail ou senha incorretos!";
+        }
      }
  
      $db_conn->close();
