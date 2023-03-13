@@ -71,7 +71,7 @@ export default {
                     else {
                         this.clientes = res.data.clientes
                     }
-                });
+                })
         },
     }
 }
