@@ -18,30 +18,21 @@
                             <th scope="col">Rua</th>
                             <th scope="col">Número</th>
                             <th scope="col">Complemento</th>
+                            <th scope="col">Bairro</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <th scope="row">1</th>
-                            <td>Mateus</td>
-                            <td>feradourada@gmail.com</td>
-                            <td>+55 (79) 99176-2846</td>
-                            <td>4 Queijos</td>
-                            <td>Cheddar</td>
-                            <td>6</td>
-                            <td>105</td>
-                            <td>Casa 09</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">2</th>
-                            <td>Nicolas</td>
-                            <td>nicolas@gmail.com</td>
-                            <td>+55 (79) 99176-2846</td>
-                            <td>4 Queijos</td>
-                            <td>Cheddar</td>
-                            <td>6</td>
-                            <td>105</td>
-                            <td>Casa 09</td>
+                        <tr v-for="cliente in clientes" :key="cliente.ID">
+                            <th scope="row">{{ cliente.ID }}</th>
+                            <td>{{ cliente.nome }}</td>
+                            <td>{{ cliente.email }}</td>
+                            <td>{{ cliente.telefone }}</td>
+                            <td>{{ cliente.sabor_pizza }}</td>
+                            <td>{{ cliente.borda_pizza }}</td>
+                            <td>{{ cliente.rua }}</td>
+                            <td>{{ cliente.numero }}</td>
+                            <td>{{ cliente.complemento }}</td>
+                            <td>{{ cliente.bairro }}</td>
                         </tr>
                     </tbody>
                 </table>
@@ -51,12 +42,37 @@
 </template>
 
 <script>
+import axios from 'axios'
 import Navbar from '../components/Navbar.vue'
 export default {
     name: 'ListaPedidos',
 
     components: {
         Navbar
+    },
+
+    data() {
+        return {
+            clientes: []
+        }
+    },
+
+    mounted() {
+        this.getClientes()
+    },
+
+    methods: {
+        getClientes() {
+            axios.get('http://localhost/Projetos/app_pizza_delivery/src/backend/clientes.php')
+                .then((res) => {
+                    if (res.data.error) {
+                        this.mensagem_erro = res.data.mensagem
+                    }
+                    else {
+                        this.clientes = res.data.clientes
+                    }
+                });
+        },
     }
 }
 </script>
