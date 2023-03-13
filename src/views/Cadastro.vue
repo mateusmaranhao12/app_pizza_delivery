@@ -95,22 +95,6 @@ export default {
 
     methods: {
 
-        mounted() {
-            this.getFuncionarios()
-        },
-
-        getFuncionarios() {
-            axios.get('http://localhost/Projetos/app_pizza_delivery/src/backend/funcionarios.php')
-                .then((res) => {
-                    if (res.data.error) {
-                        this.mensagem_erro = res.data.mensagem
-                    }
-                    else {
-                        this.funcionarios = res.data.funcionarios
-                    }
-                });
-        },
-
         cadastrarFuncionario() {
             var cadastrar_funcionario = this.toFormData(this.funcionarios_registrados)
             axios.post(
@@ -143,7 +127,6 @@ export default {
                     this.erro_email = ''
                     this.erro_cpf = ''
                     this.erro_senha = ''
-                    this.getFuncionarios()
                     this.limparFormulario()
 
                 }
