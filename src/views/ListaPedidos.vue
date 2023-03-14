@@ -15,7 +15,7 @@
                     <option value="4">Ordenar por ID (Padrão)</option>
                 </select>
             </div>
-            <div class="col">
+            <div class="col table-responsive">
                 <table class="table table-striped table-hover mt-5">
                     <thead>
                         <tr>
@@ -43,6 +43,11 @@
                             <td>{{ cliente.numero }}</td>
                             <td>{{ cliente.complemento }}</td>
                             <td>{{ cliente.bairro }}</td>
+                            <td>
+                                <button class="btn btn-danger" @click="removerPedido(cliente.ID)">
+                                    <i class="fa-solid fa-trash"></i>
+                                </button>
+                            </td>
                         </tr>
                     </tbody>
                 </table>
@@ -64,7 +69,19 @@ export default {
     data() {
         return {
             clientes: [],
-            ordenacao: ''
+            ordenacao: '',
+            lista_clientes: {
+                nome: '',
+                email: '',
+                telefone: '',
+                sabor_pizza: '',
+                borda_pizza: '',
+                rua: '',
+                numero: '',
+                complemento: '',
+                bairro: ''
+
+            }
         }
     },
 
@@ -152,6 +169,11 @@ export default {
                     }
                 })
         },
+
+        removerPedido(ID) {
+
+            console.log(ID)
+        }
     }
 }
 </script>

@@ -149,6 +149,12 @@
 
      }
 
+     //remover pedido
+     if ($acao == 'remover_pedido') {
+        $ID = $_POST['ID'];
+        $sql = $db_conn->query("DELETE FROM clientes WHERE ID = '$ID'");
+     }
+
     include "db_close.php";
 
 ?>
