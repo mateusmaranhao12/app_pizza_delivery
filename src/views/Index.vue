@@ -20,12 +20,33 @@
                 <div class="form-row">
                   <div class="form-group col-md-12 mx-2">
                     <label for="user">E-mail</label>
-                    <input type="text" ref="email" placeholder="e-mail" id="email" class="form-control mb-3" name="email" v-model="funcionarios_registrados.email" />
+                    <input type="text" ref="email" placeholder="e-mail" id="email" class="form-control mb-3" name="email"
+                      v-model="funcionarios_registrados.email" />
                   </div>
 
                   <div class="form-group col-md-12 mx-2">
                     <label for="senha">Senha</label>
-                    <input type="password" placeholder="Senha" id="senha" class="form-control" name="senha" v-model="funcionarios_registrados.senha" />
+                    <div class="input-group mb-3">
+                      <input v-if="mostrar_senha" type="text" 
+                        class="form-control" 
+                        placeholder="Senha" 
+                        v-model="funcionarios_registrados.senha" 
+                        name="senha"
+                        aria-label="Senha" 
+                        aria-describedby="button-addon2"
+                      >
+                      <input v-else type="password" 
+                        class="form-control" 
+                        placeholder="Senha" 
+                        v-model="funcionarios_registrados.senha" 
+                        name="senha"
+                        aria-label="Senha" 
+                        aria-describedby="button-addon2"
+                      >
+                      <button @click="alternarExibicaoSenha()" class="btn btn-outline-dark" type="button" id="senha">
+                        <i class="fa-solid" :class="{ 'fa-eye-slash' : mostrar_senha, 'fa-eye': !mostrar_senha }"></i>
+                      </button>
+                    </div>
                   </div>
                 </div>
 
@@ -64,7 +85,9 @@ export default {
       mensagem_erro: '',
       erro_login: '',
       funcionarios: [],
-      funcionarios_registrados: { email: '', senha: '' }
+      funcionarios_registrados: { email: '', senha: '' },
+      mostrar_senha: false,
+      senha: null
     }
   },
 
@@ -111,10 +134,12 @@ export default {
         this.erro_login = ''
     },
 
+    alternarExibicaoSenha() {
+      this.mostrar_senha = !this.mostrar_senha
+    }
+
   }
 }
 </script>
 
-<style scoped lang="scss">
-@import '../scss/index.scss';
-</style>
+<style scoped lang="scss">@import '../scss/index.scss';</style>

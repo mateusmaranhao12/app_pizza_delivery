@@ -44,8 +44,19 @@
                                 </div>
                                 <div class="form-group col-md-12 mx-2">
                                     <label for="senha">Senha</label>
-                                    <input type="password" placeholder="Senha" ref="senha" id="senha"
-                                        v-model="funcionarios_registrados.senha" class="form-control mb-2" name="senha" />
+                                    <div class="input-group mb-3">
+                                        <input v-if="mostrar_senha" type="text" class="form-control" placeholder="Senha"
+                                            v-model="funcionarios_registrados.senha" name="senha" aria-label="Senha"
+                                            aria-describedby="button-addon2">
+                                        <input v-else type="password" class="form-control" placeholder="Senha"
+                                            v-model="funcionarios_registrados.senha" name="senha" aria-label="Senha"
+                                            aria-describedby="button-addon2">
+                                        <button @click="alternarExibicaoSenha()" class="btn btn-outline-dark" type="button"
+                                            id="senha">
+                                            <i class="fa-solid"
+                                                :class="{ 'fa-eye-slash': mostrar_senha, 'fa-eye': !mostrar_senha }"></i>
+                                        </button>
+                                    </div>
                                     <small class="text-danger">{{ erro_senha }}</small>
                                 </div>
                             </div>
@@ -89,7 +100,9 @@ export default {
             erro_cpf: '',
             erro_senha: '',
             funcionarios: [],
-            funcionarios_registrados: { nome: '', email: '', cpf: '', senha: '' }
+            funcionarios_registrados: { nome: '', email: '', cpf: '', senha: '' },
+            mostrar_senha: false,
+            senha: null
         }
     },
 
@@ -136,9 +149,9 @@ export default {
 
         limparFormulario() {
             this.funcionarios_registrados.nome = '',
-            this.funcionarios_registrados.email = '',
-            this.funcionarios_registrados.cpf = '',
-            this.funcionarios_registrados.senha = ''
+                this.funcionarios_registrados.email = '',
+                this.funcionarios_registrados.cpf = '',
+                this.funcionarios_registrados.senha = ''
         },
 
         nomeFocus() {
@@ -159,7 +172,7 @@ export default {
 
         fecharMensagem() {
             this.mensagem_erro = '',
-            this.mensagem_sucesso = ''
+                this.mensagem_sucesso = ''
         },
 
         toFormData(obj) {
@@ -169,6 +182,10 @@ export default {
             }
             return liveFormData
         },
+
+        alternarExibicaoSenha() {
+            this.mostrar_senha = !this.mostrar_senha
+        }
     }
 }
 
