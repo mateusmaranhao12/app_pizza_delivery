@@ -172,7 +172,18 @@ export default {
 
         removerPedido(ID) {
 
-            console.log(ID)
+            axios.delete('http://localhost/Projetos/app_pizza_delivery/src/backend/clientes.php?acao=remover_pedido', {
+                params: {
+                    ID: ID
+                }
+            }) .then((res) => {
+                console.log(res.data);
+            })
+            .catch((error) => {
+                console.log(error);
+            })
+
+            location.reload()
         }
     }
 }

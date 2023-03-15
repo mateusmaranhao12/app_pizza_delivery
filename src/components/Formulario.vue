@@ -132,11 +132,11 @@ export default {
     methods: {
 
         proximaEtapa() {
-            if (this.lista_clientes.nome == '' || 
-            this.lista_clientes.email == '' || 
-            this.lista_clientes.telefone == '' || 
-            this.lista_clientes.sabor_pizza == '' || 
-            this.lista_clientes.borda_pizza == '') {
+            if (this.lista_clientes.nome == '' ||
+                this.lista_clientes.email == '' ||
+                this.lista_clientes.telefone == '' ||
+                this.lista_clientes.sabor_pizza == '' ||
+                this.lista_clientes.borda_pizza == '') {
                 this.pedido_erro = 'Preencha todos os campos para passar para a próxima etapa!'
             } else {
                 this.etapa = 2
@@ -232,7 +232,7 @@ export default {
 
         fecharMensagem() {
             this.pedido_erro = '',
-            this.pedido_sucesso = ''
+                this.pedido_sucesso = ''
         },
 
         toFormData(obj) {

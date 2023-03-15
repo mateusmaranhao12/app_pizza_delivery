@@ -151,7 +151,8 @@
 
      //remover pedido
      if ($acao == 'remover_pedido') {
-        $ID = $_POST['ID'];
+        
+        $ID = $_GET["ID"];
         $sql = $db_conn->query("DELETE FROM clientes WHERE ID = '$ID'");
      }
 
