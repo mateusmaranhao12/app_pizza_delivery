@@ -110,6 +110,9 @@ export default {
 
           if (res.data.error) {
             this.erro_login = res.data.mensagem
+            setTimeout(() => {
+              this.erro_login = ''
+            }, 3000)
           } else {
             this.$router.push('/home')
           }

@@ -1,5 +1,10 @@
 <template>
     <Navbar />
+    <div v-if="pedido_removido_sucesso" class="mt-5 alert alert-success alert-dismissible fade show" role="alert">
+        <h5>{{ pedido_removido_sucesso }}</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"
+            @click="fecharMensagem()"></button>
+    </div>
     <div class="titulo-lista-pedidos">
         <h1>Lista de pedidos</h1>
     </div>
@@ -44,10 +49,33 @@
                             <td>{{ cliente.complemento }}</td>
                             <td>{{ cliente.bairro }}</td>
                             <td>
-                                <button class="btn btn-danger" @click="removerPedido(cliente.ID)">
+                                <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#modalDelete">
                                     <i class="fa-solid fa-trash"></i>
                                 </button>
                             </td>
+
+                            <!--Modal-->
+                            <div class="modal fade" id="modalDelete" tabindex="-1" aria-labelledby="modalDelete"
+                                aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h1 class="modal-title fs-5" id="modalDelete">Confirmação de remoção</h1>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            Tem certeza que deseja remover esse pedido ?
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary"
+                                                data-bs-dismiss="modal">Fechar</button>
+                                            <button type="button" class="btn btn-danger" data-bs-dismiss="modal"
+                                                @click="removerPedido(cliente.ID)">Remover pedido</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </tr>
                     </tbody>
                 </table>
@@ -70,6 +98,7 @@ export default {
         return {
             clientes: [],
             ordenacao: '',
+            pedido_removido_sucesso: '',
             lista_clientes: {
                 nome: '',
                 email: '',
@@ -176,19 +205,22 @@ export default {
                 params: {
                     ID: ID
                 }
-            }) .then((res) => {
+            }).then((res) => {
                 console.log(res.data);
             })
-            .catch((error) => {
-                console.log(error);
-            })
+                .catch((error) => {
+                    console.log(error);
+                })
 
             location.reload()
-        }
+            this.pedido_removido_sucesso = 'Pedido removido com sucesso!'
+        },
+
+        fecharMensagem() {
+            this.pedido_removido_sucesso = ''
+        },
     }
 }
 </script>
 
-<style lang="scss" scoped>
-@import '../scss/lista_pedidos.scss';
-</style>
+<style lang="scss" scoped>@import '../scss/lista_pedidos.scss';</style>
