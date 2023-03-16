@@ -23,27 +23,27 @@
 
                             <div class="form-row">
                                 <div class="form-group col-md-12 mx-2">
-                                    <label for="nome">Nome</label>
+                                    <label for="nome">Nome</label> <span class="text-danger">*</span>
                                     <input type="text" placeholder="Nome" ref="nome" id="nome"
                                         v-model="funcionarios_registrados.nome" class="form-control mb-2" name="nome" />
                                     <small class="text-danger">{{ erro_nome }}</small>
                                 </div>
 
                                 <div class="form-group col-md-12 mx-2">
-                                    <label for="email">E-mail</label>
+                                    <label for="email">E-mail</label> <span class="text-danger">*</span>
                                     <input type="text" placeholder="e-mail" ref="email" id="email"
                                         v-model="funcionarios_registrados.email" class="form-control mb-2" name="email" />
                                     <small class="text-danger">{{ erro_email }}</small>
                                 </div>
                                 <div class="form-group col-md-12 mx-2">
-                                    <label for="cpf">CPF</label>
+                                    <label for="cpf">CPF</label> <span class="text-danger">*</span>
                                     <input type="cpf" placeholder="CPF" ref="cpf" id="cpf"
                                         v-model="funcionarios_registrados.cpf" class="form-control mb-2" name="cpf"
                                         v-maska="'###.###.###-##'" />
                                     <small class="text-danger">{{ erro_cpf }}</small>
                                 </div>
                                 <div class="form-group col-md-12 mx-2">
-                                    <label for="senha">Senha</label>
+                                    <label for="senha">Senha</label> <span class="text-danger">*</span>
                                     <div class="input-group mb-3">
                                         <input v-if="mostrar_senha" type="text" class="form-control" placeholder="Senha"
                                             v-model="funcionarios_registrados.senha" name="senha" aria-label="Senha"

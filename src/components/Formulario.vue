@@ -13,25 +13,25 @@
     <div v-if="etapa == 1" class="mt-5">
         <h2 class="mt-5 mb-5">Etapa 1: Informações do cliente</h2>
         <div class="form-group mx-2 mb-3">
-            <label for="nome">Nome</label>
+            <label for="nome">Nome</label> <span class="text-danger">*</span>
             <input type="text" v-model="lista_clientes.nome" placeholder="Nome do cliente" ref="nome" class="form-control"
                 name="nome" />
             <small class="text-danger">{{ erro_nome }}</small>
         </div>
         <div class="form-group mx-2 mb-3">
-            <label for="email">E-mail</label>
+            <label for="email">E-mail</label> <span class="text-danger">*</span>
             <input type="text" v-model="lista_clientes.email" placeholder="E-mail do cliente" ref="email"
                 class="form-control" name="email" />
             <small class="text-danger">{{ erro_email }}</small>
         </div>
         <div class="form-group mx-2 mb-3">
-            <label for="telefone">Telefone</label>
+            <label for="telefone">Telefone</label> <span class="text-danger">*</span>
             <input type="tel" v-model="lista_clientes.telefone" placeholder="Telefone do cliente" ref="telefone"
                 v-maska="'(##) #####-####'" class="form-control" name="telefone" />
             <small class="text-danger">{{ erro_telefone }}</small>
         </div>
         <div class="form-group mx-2 mb-3">
-            <label for="sabor_pizza">Sabor de pizza: </label>
+            <label for="sabor_pizza">Sabor de pizza: </label> <span class="text-danger">*</span>
             <select class="form-select" v-model="lista_clientes.sabor_pizza" name="sabor_pizza" id="sabor_pizza">
                 <option value="">Escolha um sabor</option>
                 <option v-for="p in sabor_pizza" :key="p" :value="p">
@@ -41,7 +41,7 @@
             <small class="text-danger">{{ erro_sabor_pizza }}</small>
         </div>
         <div class="form-group mx-2 mb-3">
-            <label for="borda_pizza">Borda da pizza: </label>
+            <label for="borda_pizza">Borda da pizza: </label> <span class="text-danger">*</span>
             <select class="form-select" v-model="lista_clientes.borda_pizza" name="borda_pizza" id="borda_pizza">
                 <option value="">Escolha um tipo de borda</option>
                 <option v-for="b in borda_pizza" :key="b" :value="b">
@@ -59,24 +59,24 @@
     <div v-if="etapa == 2" class="mt-5">
         <h2 class="mt-5 mb-5">Etapa 2: Endereço do cliente</h2>
         <div class="form-group col-md-12 mx-2 mb-3">
-            <label for="rua">Rua</label>
+            <label for="rua">Rua</label> <span class="text-danger">*</span>
             <input type="text" v-model="lista_clientes.rua" placeholder="Rua" ref="rua" class="form-control" name="rua" />
             <small class="text-danger">{{ erro_rua }}</small>
         </div>
         <div class="form-group col-md-12 mx-2 mb-3">
-            <label for="numero">Número</label>
+            <label for="numero">Número</label> <span class="text-danger">*</span>
             <input type="text" v-model="lista_clientes.numero" placeholder="Número" ref="numero" class="form-control"
                 name="numero" />
             <small class="text-danger">{{ erro_numero }}</small>
         </div>
         <div class="form-group mx-2 mb-3">
-            <label for="complemento">Complemento</label>
+            <label for="complemento">Complemento</label> <span class="text-danger">*</span>
             <input type="text" v-model="lista_clientes.complemento" placeholder="Complemento" ref="complemento"
                 class="form-control" name="complemento" />
             <small class="text-danger">{{ erro_complemento }}</small>
         </div>
         <div class="form-group mx-2 mb-3">
-            <label for="complemento">Bairro</label>
+            <label for="complemento">Bairro</label> <span class="text-danger">*</span>
             <input type="text" v-model="lista_clientes.bairro" placeholder="Bairro" ref="bairro" class="form-control"
                 name="bairro" />
             <small class="text-danger">{{ erro_bairro }}</small>
