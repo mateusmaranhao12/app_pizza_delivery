@@ -60,27 +60,22 @@
         if ($nome == '') {
 
             $res_output['nome'] = true;
-            $res_output['mensagem'] = 'Informe seu nome!';
 
         } else if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
 
             $res_output['email'] = true;
-            $res_output['mensagem'] = 'Informe seu e-mail!';
 
         } else if (!$telefone) {
 
             $res_output['telefone'] = true;
-            $res_output['mensagem'] = 'Informe seu telefone!';
 
         } else if (!$sabor_pizza) {
 
             $res_output['sabor_pizza'] = true;
-            $res_output['mensagem'] = 'Escolha um sabor de pizza!';
 
         } else if (!$borda_pizza) {
 
             $res_output['borda_pizza'] = true;
-            $res_output['mensagem'] = 'Escolha um tipo de borda de pizza!';
 
         } else if (!$rua) {
 

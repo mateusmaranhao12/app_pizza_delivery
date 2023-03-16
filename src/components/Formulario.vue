@@ -138,6 +138,21 @@ export default {
                 this.lista_clientes.sabor_pizza == '' ||
                 this.lista_clientes.borda_pizza == '') {
                 this.pedido_erro = 'Preencha todos os campos para passar para a próxima etapa!'
+                setTimeout(() => {
+                    this.pedido_erro = ''
+                }, 2000)
+
+                if (this.lista_clientes.nome == '') {
+                    this.erro_nome = 'Informe seu nome'
+                } else if (this.lista_clientes.email == '') {
+                    this.erro_email = 'Informe seu email'
+                } else if (this.lista_clientes.telefone == '') {
+                    this.erro_telefone = 'Informe seu telefone'
+                } else if (this.lista_clientes.sabor_pizza == '') {
+                    this.erro_sabor_pizza = 'Informe o sabor de pizza'
+                } else if (this.lista_clientes.borda_pizza == '') {
+                    this.erro_borda_pizza = 'Informe a borda da pizza'
+                }
             } else {
                 this.etapa = 2
             }
@@ -155,27 +170,23 @@ export default {
             ).then((res) => {
                 if (res.data.nome) {
 
-                    this.erro_nome = res.data.mensagem
                     this.nomeFocus()
 
                 } else if (res.data.email) {
 
                     this.erro_email = res.data.mensagem
-                    this.emailFocus()
+                    this.etapaAnterior()
 
                 } else if (res.data.telefone) {
 
-                    this.erro_telefone = res.data.mensagem
                     this.telefoneFocus()
 
                 } else if (res.data.sabor_pizza) {
 
-                    this.erro_sabor_pizza = res.data.mensagem
                     this.saborPizzaFocus()
 
                 } else if (res.data.borda_pizza) {
 
-                    this.erro_borda_pizza = res.data.mensagem
                     this.bordaPizzaFocus()
 
                 } else if (res.data.rua) {
