@@ -1,84 +1,63 @@
 <template>
     <Navbar />
-    <div v-if="pedido_removido_sucesso" class="mt-5 alert alert-success alert-dismissible fade show" role="alert">
-        <h5>{{ pedido_removido_sucesso }}</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"
-            @click="fecharMensagem()"></button>
-    </div>
-    <div class="titulo-lista-pedidos">
-        <h1>Lista de pedidos</h1>
-    </div>
-    <div class="container">
-        <div class="row">
-            <h2 class="mt-3 col-md-6">Filtrar pedidos</h2>
-            <div class="col-md-6 mt-3">
-                <select class="form-select" aria-label="Filtrar" v-model="ordenacao">
-                    <option value="">Selecione uma opção</option>
-                    <option value="1">Ordem alfabética</option>
-                    <option value="2">Ordem alfabética inversa</option>
-                    <option value="3">Ordem por ID inversa</option>
-                    <option value="4">Ordenar por ID (Padrão)</option>
-                </select>
-            </div>
-            <div class="col table-responsive">
-                <table class="table table-striped table-hover mt-5">
-                    <thead>
-                        <tr>
-                            <th scope="col">ID</th>
-                            <th scope="col">Cliente</th>
-                            <th scope="col">E-mail</th>
-                            <th scope="col">Telefone</th>
-                            <th scope="col">Sabor de Pizza</th>
-                            <th scope="col">Borda</th>
-                            <th scope="col">Rua</th>
-                            <th scope="col">Número</th>
-                            <th scope="col">Complemento</th>
-                            <th scope="col">Bairro</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr v-for="cliente in clientes" :key="cliente.ID">
-                            <th scope="row">{{ cliente.ID }}</th>
-                            <td>{{ cliente.nome }}</td>
-                            <td>{{ cliente.email }}</td>
-                            <td>{{ cliente.telefone }}</td>
-                            <td>{{ cliente.sabor_pizza }}</td>
-                            <td>{{ cliente.borda_pizza }}</td>
-                            <td>{{ cliente.rua }}</td>
-                            <td>{{ cliente.numero }}</td>
-                            <td>{{ cliente.complemento }}</td>
-                            <td>{{ cliente.bairro }}</td>
-                            <td>
-                                <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#modalDelete">
-                                    <i class="fa-solid fa-trash"></i>
-                                </button>
-                            </td>
-
-                            <!--Modal-->
-                            <div class="modal fade" id="modalDelete" tabindex="-1" aria-labelledby="modalDelete"
-                                aria-hidden="true">
-                                <div class="modal-dialog">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h1 class="modal-title fs-5" id="modalDelete">Confirmação de remoção</h1>
-                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                aria-label="Close"></button>
-                                        </div>
-                                        <div class="modal-body">
-                                            Tem certeza que deseja remover esse pedido ?
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary"
-                                                data-bs-dismiss="modal">Fechar</button>
-                                            <button type="button" class="btn btn-danger" data-bs-dismiss="modal"
-                                                @click="removerPedido(cliente.ID)">Remover pedido</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </tr>
-                    </tbody>
-                </table>
+    <div id="lista_pedidos">
+        <div v-if="pedido_removido_sucesso" class="mt-5 alert alert-success alert-dismissible fade show" role="alert">
+            <h5>{{ pedido_removido_sucesso }}</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"
+                @click="fecharMensagem()"></button>
+        </div>
+        <div class="titulo-lista-pedidos">
+            <h1>Lista de pedidos</h1>
+        </div>
+        <div class="container">
+            <div class="row">
+                <h2 class="mt-3 col-md-6">Filtrar pedidos</h2>
+                <div class="col-md-6 mt-3">
+                    <select class="form-select" aria-label="Filtrar" v-model="ordenacao">
+                        <option value="">Selecione uma opção</option>
+                        <option value="1">Ordem alfabética</option>
+                        <option value="2">Ordem alfabética inversa</option>
+                        <option value="3">Ordem por ID inversa</option>
+                        <option value="4">Ordenar por ID (Padrão)</option>
+                    </select>
+                </div>
+                <div class="col table-responsive">
+                    <table class="table table-striped table-hover mt-5">
+                        <thead>
+                            <tr>
+                                <th scope="col">ID</th>
+                                <th scope="col">Cliente</th>
+                                <th scope="col">E-mail</th>
+                                <th scope="col">Telefone</th>
+                                <th scope="col">Sabor de Pizza</th>
+                                <th scope="col">Borda</th>
+                                <th scope="col">Rua</th>
+                                <th scope="col">Número</th>
+                                <th scope="col">Complemento</th>
+                                <th scope="col">Bairro</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr v-for="cliente in clientes" :key="cliente.ID">
+                                <th scope="row">{{ cliente.ID }}</th>
+                                <td>{{ cliente.nome }}</td>
+                                <td>{{ cliente.email }}</td>
+                                <td>{{ cliente.telefone }}</td>
+                                <td>{{ cliente.sabor_pizza }}</td>
+                                <td>{{ cliente.borda_pizza }}</td>
+                                <td>{{ cliente.rua }}</td>
+                                <td>{{ cliente.numero }}</td>
+                                <td>{{ cliente.complemento }}</td>
+                                <td>{{ cliente.bairro }}</td>
+                                <td>
+                                    <button class="btn btn-danger" @click="removerPedido(cliente.ID)">
+                                        <i class="fa-solid fa-trash"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </div>
@@ -89,6 +68,8 @@ import axios from 'axios'
 import Navbar from '../components/Navbar.vue'
 export default {
     name: 'ListaPedidos',
+
+    el: '#lista_pedidos',
 
     components: {
         Navbar
@@ -182,7 +163,7 @@ export default {
 
     },
 
-    mounted() {
+    created() {
         this.getClientes()
     },
 
@@ -212,8 +193,12 @@ export default {
                     console.log(error);
                 })
 
-            location.reload()
             this.pedido_removido_sucesso = 'Pedido removido com sucesso!'
+            setTimeout(() => {
+                this.pedido_removido_sucesso = ''
+            }, 1000)
+            location.reload()
+            
         },
 
         fecharMensagem() {
@@ -223,4 +208,6 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>@import '../scss/lista_pedidos.scss';</style>
+<style lang="scss" scoped>
+@import '../scss/lista_pedidos.scss';
+</style>

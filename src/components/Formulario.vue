@@ -203,7 +203,7 @@ export default {
                     this.pedido_sucesso = res.data.mensagem
                     setTimeout(() => {
                         this.pedido_sucesso = ''
-                    }, 2000);
+                    }, 2000)
                     this.erro_nome = ''
                     this.erro_email = ''
                     this.erro_telefone = ''
